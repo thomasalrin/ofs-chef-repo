@@ -3,5 +3,6 @@
 ###
 # Ignore Chef key files and secrets
 ###
-.chef
-data_bags
+.gitignore
+.chef/
+data_bags/
