@@ -1,5 +1,4 @@
 chefignore
-.gitignore
 .chef
 data_bags
 *~
