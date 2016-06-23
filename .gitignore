@@ -1,8 +1,6 @@
 .rake_test_cache
-
-###
-# Ignore Chef key files and secrets
-###
+chefignore
 .gitignore
-.chef/
-data_bags/
+.chef
+/data_bags
+*~
