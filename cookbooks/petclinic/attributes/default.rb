@@ -1,0 +1,6 @@
+default['tomcat']['name'] = "petclinic"
+default['tomcat']['version'] = "8.0.36"
+default['tomcat']['path'] = "/opt/tomcat_#{node['tomcat']['name']}/"
+default['petclinic']['repo']['url'] = "https://github.com/pandiarajann/Petclinic2.0.git"
+default['petclinic']['repo']['branch'] = "master"
+default['petclinic']['repo']['location'] = "/opt/mysources/petclinic"

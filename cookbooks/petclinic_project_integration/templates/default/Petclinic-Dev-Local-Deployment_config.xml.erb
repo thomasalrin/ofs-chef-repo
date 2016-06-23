@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Deploy Petclinic project in dev box locally</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_dev_local_deployment']['hudson_tasks_Shell_notify']['command'] %></command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>Petclinic-Docker-Dev-Deployment</childProjects>
+      <threshold>
+        <name>UNSTABLE</name>
+        <ordinal>1</ordinal>
+        <color>YELLOW</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+    <hudson.plugins.deploy.DeployPublisher plugin="deploy@1.10">
+      <adapters>
+        <hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
+          <userName><%= node['project_integration']['petclinic_dev_local_deployment']['hudson_plugins_deploy_tomcat_Tomcat7xAdapter']['username'] %></userName>
+          <passwordScrambled><%= node['project_integration']['petclinic_dev_local_deployment']['hudson_plugins_deploy_tomcat_Tomcat7xAdapter']['password'] %></passwordScrambled>
+          <url><%= node['project_integration']['petclinic_dev_local_deployment']['hudson_plugins_deploy_tomcat_Tomcat7xAdapter']['url'] %></url>
+        </hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
+      </adapters>
+      <contextPath>petclinic</contextPath>
+      <war>target/petclinic.war</war>
+      <onFailure>false</onFailure>
+    </hudson.plugins.deploy.DeployPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

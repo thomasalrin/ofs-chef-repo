@@ -1,0 +1,11 @@
+---
+# Used for post message action
+post_message_action:
+  webhook_url: <%= node['stackstorm']['post_message_action']['webhook_url'] %>
+  username: <%= node['stackstorm']['post_message_action']['username'] %>
+  icon_emoji: <%= node['stackstorm']['post_message_action']['icon_emoji'] %>
+
+# Used for Slack sensor
+sensor:
+  token: <%= node['stackstorm']['sensor']['token'] %>
+  strip_formatting: <%= node['stackstorm']['sensor']['strip_formatting'] %>

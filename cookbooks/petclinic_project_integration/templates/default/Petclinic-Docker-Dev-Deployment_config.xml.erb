@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.TextParameterDefinition>
+          <name>ProjectName</name>
+          <description>Petclinic-Deployment</description>
+          <defaultValue>Petclinic-Deployment</defaultValue>
+        </hudson.model.TextParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>workspace/Petclinic-Workspace/</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_deployment_completed']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_rebuilt_started']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_docker_kill']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_rebuilt_completed']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_newbuild_pushed']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_notify_docker_push']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_rebuilt_pushed']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['petclinic_docker_dev_deployment']['hudson_tasks_Shell_image_pulled']['command'] %></command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>Pull petclinic docker image and deploy in QA server</childProjects>
+      <threshold>
+        <name>UNSTABLE</name>
+        <ordinal>1</ordinal>
+        <color>YELLOW</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers/>
+</project>

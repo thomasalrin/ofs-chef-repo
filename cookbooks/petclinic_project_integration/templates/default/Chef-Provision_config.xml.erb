@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.4.1">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_curl_notify'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['chef_provision']['hudson_tasks_Shell_notify']['command'] %></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command><%= node['project_integration']['webhook_jboss_provision'] %><%= node['project_integration']['auth_token'] %><%= node['project_integration']['chef_provision']['hudson_tasks_Shell_chef_jbossprov']['command'] %></command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+  </executionStrategy>
+</matrix-project>
