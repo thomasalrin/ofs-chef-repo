@@ -1,6 +1,5 @@
-.rake_test_cache
 chefignore
 .gitignore
 .chef
-/data_bags
+data_bags
 *~
