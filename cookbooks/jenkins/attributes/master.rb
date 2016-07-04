@@ -196,7 +196,7 @@ default['jenkins']['master'].tap do |master|
   # Repository URL. Default is latest
   #
   master['repository'] = case node['platform_family']
-                         when 'debian' then 'http://pkg.jenkins-ci.org/debian'
+                         when 'debian' then 'http://pkg.jenkins-ci.org/debian-stable'
                          when 'rhel' then 'http://pkg.jenkins-ci.org/redhat'
                          end
 
